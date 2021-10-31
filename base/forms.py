@@ -1,5 +1,6 @@
-from django.forms import ModelForm, fields, models
-from .models import Project
+from django.db.models import fields
+from django.forms import ModelForm
+from .models import Project, Message
 
 
 
@@ -13,5 +14,24 @@ class ProjectForm(ModelForm):
         self.fields['title'].widget.attrs.update(
             {'class': 'form-control'})
 
+        self.fields['body'].widget.attrs.update(
+            {'class': 'form-control', })
+
+
+class MessageForm(ModelForm):
+    class Meta:
+        model = Message
+        fields = "__all__"
+        exclude = ['is_read']
+
+
+    def __init__(self, *args, **kwargs):
+        super(MessageForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs.update(
+            {'class': 'form-control'})
+        self.fields['email'].widget.attrs.update(
+            {'class': 'form-control'})
+        self.fields['subject'].widget.attrs.update(
+            {'class': 'form-control'})
         self.fields['body'].widget.attrs.update(
             {'class': 'form-control', })
