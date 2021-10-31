@@ -59,14 +59,14 @@ body {
   text-align: center;
 }
 .project--wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
   gap: 2em;
   margin-top: 2em;
   margin-bottom: 2em;
 }
 
 .project--column {
+  width: 300px;
 }
 .project--thumbnail {
   width: 100%;
