@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Project, Skill, Message, Endorsement
-from .forms import ProjectForm, MessageForm, SkillForm,EndorsementForm
+from .forms import ProjectForm, MessageForm, SkillForm,EndorsementForm, CommentForm
 from django.contrib import messages
 # Create your views here.
 def homePage(request):
@@ -32,7 +32,20 @@ def homePage(request):
 
 def projectsPage(request,pk):
     project = Project.objects.get(id=pk)
-    context={"project": project}
+    count =  project.comment_set.count()
+    comments = project.comment_set.all().order_by('-created ')
+
+    form = CommentForm()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid:
+            comment = form.save(commit=False)
+            comment.project = project
+            comment.save()
+            messages.success(request, "Your comment was successfully send")
+        
+
+    context={"project": project, "count":count, "comments":comments, "form":form}
     return render(request, 'base/project.html',context)
 
 
