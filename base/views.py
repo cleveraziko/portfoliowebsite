@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
-from .models import Project, Skill, Message
-from .forms import ProjectForm, MessageForm
+from .models import Project, Skill, Message, Endorsement
+from .forms import ProjectForm, MessageForm, SkillForm,EndorsementForm
 from django.contrib import messages
 # Create your views here.
 def homePage(request):
     projects = Project.objects.all()
     detailedskills = Skill.objects.exclude(body='')
-    
+    endorsement = Endorsement.objects.filter(approved=True) 
     
     skills = Skill.objects.filter(body='')
     form =  MessageForm()
@@ -23,6 +23,7 @@ def homePage(request):
         "skills":skills,
         "detailedskills":detailedskills,
         "form":form,
+        "endoresements": endorsement,
 
     }
     return render(request, 'base/home.html',context)
@@ -85,3 +86,32 @@ def messagePage(request,pk):
         'message':message,
     }
     return render(request, 'base/message.html', context)
+
+
+
+
+def addSkill(request):
+    form = SkillForm()
+    if request.method == 'POST':
+        form = SkillForm(request.POST)
+        form.save()
+        messages.success(request, "Your skill was successfully added")
+        return redirect('home')
+    context={
+        'form':form,
+    }
+    return render(request, 'base/skill_form.html',context)
+
+
+
+def addEndorsement(request):
+    form = EndorsementForm()
+    if request.method == 'POST':
+        form = EndorsementForm(request.POST)
+        form.save()
+        messages.success(request, "Thank you ,Your endorsement was successfully added")
+        return redirect('home')
+    context={
+        'form':form,
+    }
+    return render(request, 'base/endoresment_form.html',context)
