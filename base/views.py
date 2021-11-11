@@ -33,7 +33,7 @@ def homePage(request):
 def projectsPage(request,pk):
     project = Project.objects.get(id=pk)
     count =  project.comment_set.count()
-    comments = project.comment_set.all().order_by('-created ')
+    comments = project.comment_set.all().order_by('-created')
 
     form = CommentForm()
     if request.method == 'POST':
