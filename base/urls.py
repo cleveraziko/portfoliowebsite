@@ -10,5 +10,6 @@ urlpatterns = [
     path('message/<str:pk>/', views.messagePage, name="message"),
      path('add-skill/', views.addSkill, name="add-skill"),
      path('add-endoresment/', views.addEndorsement, name="add-endoresment"),
+     path('donation/', views.donationsPage, name="donation"),
 
 ]

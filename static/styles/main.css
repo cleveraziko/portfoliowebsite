@@ -16,6 +16,7 @@ body {
   height: 50px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 .nav-link {
   color: #fff;
@@ -49,6 +50,7 @@ body {
   font-size: 100px;
   letter-spacing: 0.1em;
   font-weight: 700;
+  line-height: 0.9em;
 }
 .description {
   font-size: 65px;
@@ -132,6 +134,9 @@ body {
 .contact--form {
   display: block;
   max-width: 600px;
+  margin: 0 auto;
+}
+.donation--wrapper {
   margin: 0 auto;
 }
 
